@@ -96,8 +96,9 @@ class CustomerServiceIntegrationTest {
     void testUpdateCustomer() {
         Customer customer = customerService.createCustomer(new Customer("John Doe"));
 
-        Customer updateRequest = new Customer("John Smith");
-        Customer updatedCustomer = customerService.updateCustomer(customer.getId(), updateRequest);
+        // update other fields as needed
+        customer.setName("John Smith");
+        Customer updatedCustomer = customerService.updateCustomer(customer.getId(), customer);
 
         assertThat(updatedCustomer.getId()).isEqualTo(customer.getId());
         assertThat(updatedCustomer.getName()).isEqualTo("John Smith");

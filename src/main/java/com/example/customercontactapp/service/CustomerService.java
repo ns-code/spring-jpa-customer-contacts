@@ -34,17 +34,11 @@ public class CustomerService {
     }
     
     public Customer updateCustomer(Long id, Customer customerDetails) {
-        Customer customer = customerRepository.findById(id)
+        // validate existence 
+        customerRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
         
-        customer.setName(customerDetails.getName());
-        // customer.setContacts(customerDetails.getContacts());
-        customer.getContacts().clear();
-        if (customerDetails.getContacts() != null) {
-            customerDetails.getContacts().forEach(customer::addContact);
-        }       
-        log.info(">> cust: ()", customer.getContacts());
-        return customerRepository.save(customer);
+        return customerRepository.save(customerDetails);
     }
 
     public Customer updateCustomerWithContacts(Long id, Customer customerDetails) {
